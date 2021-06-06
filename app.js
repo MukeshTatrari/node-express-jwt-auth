@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
-const { requiredAuth } = require("./authmiddleware/authMiddleware");
+const { requiredAuth, checkUser } = require("./authmiddleware/authMiddleware");
 
 const app = express();
 const authRoutes = require("./routes/authRoutes");
@@ -26,8 +26,10 @@ mongoose
 
 // app.listen(3000)
 // routes
+
+app.get("*", checkUser);
 app.get("/", (req, res) => res.render("home"));
-app.get("/smoothies", requiredAuth , (req, res) => res.render("smoothies"));
+app.get("/smoothies", requiredAuth, (req, res) => res.render("smoothies"));
 
 app.get("/set-cookies", (req, res) => {
   // res.setHeader("Set-Cookies", "newUser=true");

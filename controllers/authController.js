@@ -10,13 +10,13 @@ const handleErrors = (err) => {
   };
 
   // incorrect email
-  if (err.message === 'incorrect email') {
-    errors.email = 'That email is not registered';
+  if (err.message === "incorrect email") {
+    errors.email = "That email is not registered";
   }
 
   // incorrect password
-  if (err.message === 'incorrect password') {
-    errors.password = 'That password is incorrect';
+  if (err.message === "incorrect password") {
+    errors.password = "That password is incorrect";
   }
   // duplicate email error
   if (err.code === 11000) {
@@ -73,9 +73,15 @@ const login_post = async (req, res) => {
   }
 };
 
+const logout_get = (req, res) => {
+  res.cookie("jwt", "", { maxAge: 1 });
+  res.redirect("/");
+};
+
 module.exports = {
   signup_get,
   signup_post,
   login_get,
   login_post,
+  logout_get,
 };
